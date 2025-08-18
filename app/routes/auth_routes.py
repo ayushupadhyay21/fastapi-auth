@@ -1,20 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from .. import database, models, schemas, auth
+from .. import models, schemas, auth
 from ..dependencies import get_db
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 
-router = APIRouter()
+router = APIRouter(prefix="", tags=["auth"])
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-# Dependency: get a database session
-def get_db():
-    db = database.SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 # Signup Route
 @router.post("/signup")

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TokenHaven – Frontend</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>TokenHaven</h1>
+
+      <div class="statusRow">
+        <div id="loginStatus">Not logged in.</div>
+        <button id="logoutBtn" class="secondary" hidden>Logout</button>
+      </div>
+
+      <section class="auth simple-grid">
+        <div class="card">
+          <h2>Create account</h2>
+          <form id="signupForm">
+            <label>Username <input name="username" autocomplete="username" required /></label>
+            <label>Email <input type="email" name="email" autocomplete="email" required /></label>
+            <label>Password <input type="password" name="password" autocomplete="new-password" required /></label>
+            <button type="submit">Sign up</button>
+          </form>
+          <p class="msg" id="signupMsg"></p>
+        </div>
+
+        <div class="card">
+          <h2>Log in</h2>
+          <form id="loginForm">
+            <label>Username <input name="username" autocomplete="username" required /></label>
+            <label>Password <input type="password" name="password" autocomplete="current-password" required /></label>
+            <button type="submit">Log in</button>
+          </form>
+          <p class="msg" id="loginMsg"></p>
+        </div>
+      </section>
+
+      <section class="actions simple-grid">
+        <div class="card">
+          <h2>Welcome message</h2>
+          <button id="btnProtected" disabled>Show message</button>
+          <p class="msg" id="protectedMsg"></p>
+        </div>
+
+        <div class="card">
+          <h2>My profile</h2>
+          <button id="btnProfile" disabled>Show my profile</button>
+          <p class="msg" id="profileMsg"></p>
+        </div>
+      </section>
+
+      <footer>
+        <small>Tip: After you log in, use the buttons above to view your welcome message and profile.</small>
+      </footer>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+  </html>
+
+

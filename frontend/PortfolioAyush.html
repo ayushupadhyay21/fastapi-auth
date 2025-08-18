@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ayush's Webpage</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+    <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --primary: #2563eb;
+      --accent: #22c55e;
+      --border: #e2e8f0;
+      --chip: #eef2ff;
+    }
+    /* Dark theme overrides */
+    .dark {
+      --bg: #0b1220;
+      --card: #0f172a;
+      --text: #e5e7eb;
+      --muted: #a3a3a3;
+      --primary: #3b82f6;
+      --accent: #22c55e;
+      --border: #1f2937;
+      --chip: #111827;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(1000px 600px at 20% 0%, #e2e8f0 0%, transparent 60%),
+        radial-gradient(1000px 600px at 80% 0%, #e0f2fe 0%, transparent 60%),
+        var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+      padding: 16px;
+    }
+    body.dark {
+      background:
+        radial-gradient(900px 540px at 20% 0%, #111827 0%, transparent 60%),
+        radial-gradient(900px 540px at 80% 0%, #0b1329 0%, transparent 60%),
+        var(--bg);
+    }
+    .container { max-width: 960px; margin: 0 auto; }
+    #profileBar {
+      background: #0ea5e90d;
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 10px;
+    }
+    .dark #profileBar {
+      background: transparent;
+      border-color: rgba(255,255,255,0.08);
+    }
+    .hero { text-align: center; margin: 18px 0 14px 0; }
+    .avatar { width: 140px; height: 140px; border-radius: 50%; box-shadow: 0 10px 30px rgba(31,41,55,0.15); object-fit: cover; }
+    .title { margin: 12px 0 6px 0; font-size: 28px; }
+    .subtitle { margin: 0; color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 16px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
+    .dark .card { background: rgba(17, 24, 39, 0.55); border-color: rgba(255,255,255,0.08); backdrop-filter: blur(6px); }
+    .card h2 { margin: 0 0 10px 0; font-size: 18px; }
+    .list { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+    .list li { background: var(--chip); color: #3730a3; border: 1px solid #e0e7ff; padding: 8px 12px; border-radius: 999px; font-size: 14px; }
+    .dark .list li { color: var(--text); border-color: var(--border); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--card); color: var(--text); cursor: pointer; text-decoration: none; font-weight: 600; }
+    .dark .btn { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
+    .btn.primary { background: var(--primary); color: #ffffff; border-color: var(--primary); }
+    .btn.primary:hover { filter: brightness(0.95); }
+    .btn.outline { background: var(--card); }
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .form { display: grid; gap: 10px; }
+    .form input { padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 14px; background: var(--card); color: var(--text); }
+    .dark .form input { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
+    .form input::placeholder { color: var(--muted); }
+    .center { text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="profileBar" style="display:none; margin: 0 0 14px 0;">
+      <div class="card" style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+        <div>Logged in as <strong id="pUsername">...</strong> (<span id="pEmail">...</span>)</div>
+        <div class="btn-row">
+          <a class="btn outline" href="index.html">Home</a>
+          <button id="logoutBtn" class="btn">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero">
+      <img class="avatar" src="https://i.ibb.co/chzNR1LZ/Ayush-Pic.jpg" alt="Ayush" />
+      <h1 class="title">Hello, I'm Ayush Upadhyay!</h1>
+      <p class="subtitle">Data enthusiast · Python · SQL · Power BI</p>
+      <div class="btn-row" style="margin-top:10px;">
+        <a class="btn primary" href="https://www.linkedin.com/in/ayush-upadhyay-59b0901ab/" target="_blank" rel="noopener">LinkedIn</a>
+        <button class="btn" onclick="showMessage()">Say Hi</button>
+        <button id="themeBtn" class="btn">Toggle Theme</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Skills</h2>
+        <ul class="list">
+          <li>Python</li>
+          <li>SQL</li>
+          <li>Power BI</li>
+          <li>FastAPI</li>
+          <li>Data Viz</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Projects</h2>
+        <ul class="list">
+          <li>OLA Project</li>
+          <li>SQL Project</li>
+          <li>Sales Dashboard</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Contact</h2>
+        <div class="form">
+          <input type="text" id="username" placeholder="Your name" />
+          <input type="email" id="email" placeholder="Your email" />
+          <button class="btn primary" onclick="greetUser()">Send</button>
+          <p id="output" class="center" style="margin:0"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script>
+    // Auth/profile loader
+    (function(){
+      const TOKEN_KEY = 'tokenhaven_token';
+      const BASE_KEY = 'fastapi_base_url';
+      const base = localStorage.getItem(BASE_KEY) || 'http://127.0.0.1:8000';
+      const token = localStorage.getItem(TOKEN_KEY);
+      const bar = document.getElementById('profileBar');
+      const un = document.getElementById('pUsername');
+      const em = document.getElementById('pEmail');
+      const logoutBtn = document.getElementById('logoutBtn');
+
+      if(!token){
+        window.location.replace('index.html');
+        return;
+      }
+
+      logoutBtn.addEventListener('click', function(){
+        localStorage.removeItem(TOKEN_KEY);
+        window.location.replace('index.html');
+      });
+
+      fetch(base + '/user/me', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        }
+      }).then(async function(res){
+        var text = await res.text();
+        var data = null;
+        try{ data = JSON.parse(text); } catch(e) {}
+        if(res.ok && data){
+          un.textContent = data.username || 'user';
+          em.textContent = data.email || '';
+          bar.style.display = 'block';
+        } else {
+          alert((data && data.detail) || 'Session expired. Please log in again.');
+          localStorage.removeItem(TOKEN_KEY);
+          window.location.replace('index.html');
+        }
+      }).catch(function(){
+        alert('Could not load profile. Please try again later.');
+      });
+    })();
+
+    // Theme toggle using CSS variables
+    (function(){
+      var btn = document.getElementById('themeBtn');
+      if(btn){
+        btn.addEventListener('click', function(){
+          document.body.classList.toggle('dark');
+        });
+      }
+    })();
+
+    function showMessage() {
+        alert("Thankyou for visiting my website!");
+    }
+
+    function greetUser() {
+        let name = document.getElementById("username").value;
+        let P_email = document.getElementById("email").value;
+        if (name === "") {
+            alert("Please enter your name!");
+        } 
+        else if (P_email === "") {
+            alert("Please enter your email!");
+        }
+        else {
+            document.getElementById("output").innerText = "Hi, " + name + "! Welcome to my page.\n" 
+        + "This is your Email: " + P_email;
+        }
+        
+    }
+    // Removed old inline toggleTheme() in favor of CSS class toggle above
+
+  </script>
+
+  <p>Visit my <a href="https://www.linkedin.com/in/ayush-upadhyay-59b0901ab/">LinkedIn</a></p>
+
+  <button>Hire Me!</button>
+
+</body>
+</html>
