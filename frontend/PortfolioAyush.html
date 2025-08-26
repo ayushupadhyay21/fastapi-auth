@@ -1,221 +1,566 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Ayush's Webpage</title>
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-    <style>
-    :root {
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --text: #0f172a;
-      --muted: #475569;
-      --primary: #2563eb;
-      --accent: #22c55e;
-      --border: #e2e8f0;
-      --chip: #eef2ff;
-    }
-    /* Dark theme overrides */
-    .dark {
-      --bg: #0b1220;
-      --card: #0f172a;
-      --text: #e5e7eb;
-      --muted: #a3a3a3;
-      --primary: #3b82f6;
-      --accent: #22c55e;
-      --border: #1f2937;
-      --chip: #111827;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background:
-        radial-gradient(1000px 600px at 20% 0%, #e2e8f0 0%, transparent 60%),
-        radial-gradient(1000px 600px at 80% 0%, #e0f2fe 0%, transparent 60%),
-        var(--bg);
-      color: var(--text);
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
-      padding: 16px;
-    }
-    body.dark {
-      background:
-        radial-gradient(900px 540px at 20% 0%, #111827 0%, transparent 60%),
-        radial-gradient(900px 540px at 80% 0%, #0b1329 0%, transparent 60%),
-        var(--bg);
-    }
-    .container { max-width: 960px; margin: 0 auto; }
-    #profileBar {
-      background: #0ea5e90d;
-      border: 1px solid var(--border);
-      padding: 8px 12px;
-      border-radius: 10px;
-    }
-    .dark #profileBar {
-      background: transparent;
-      border-color: rgba(255,255,255,0.08);
-    }
-    .hero { text-align: center; margin: 18px 0 14px 0; }
-    .avatar { width: 140px; height: 140px; border-radius: 50%; box-shadow: 0 10px 30px rgba(31,41,55,0.15); object-fit: cover; }
-    .title { margin: 12px 0 6px 0; font-size: 28px; }
-    .subtitle { margin: 0; color: var(--muted); }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 16px; }
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
-    .dark .card { background: rgba(17, 24, 39, 0.55); border-color: rgba(255,255,255,0.08); backdrop-filter: blur(6px); }
-    .card h2 { margin: 0 0 10px 0; font-size: 18px; }
-    .list { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-    .list li { background: var(--chip); color: #3730a3; border: 1px solid #e0e7ff; padding: 8px 12px; border-radius: 999px; font-size: 14px; }
-    .dark .list li { color: var(--text); border-color: var(--border); }
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--card); color: var(--text); cursor: pointer; text-decoration: none; font-weight: 600; }
-    .dark .btn { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
-    .btn.primary { background: var(--primary); color: #ffffff; border-color: var(--primary); }
-    .btn.primary:hover { filter: brightness(0.95); }
-    .btn.outline { background: var(--card); }
-    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-    .form { display: grid; gap: 10px; }
-    .form input { padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 14px; background: var(--card); color: var(--text); }
-    .dark .form input { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
-    .form input::placeholder { color: var(--muted); }
-    .center { text-align: center; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - TokenHaven</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <div id="profileBar" style="display:none; margin: 0 0 14px 0;">
-      <div class="card" style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
-        <div>Logged in as <strong id="pUsername">...</strong> (<span id="pEmail">...</span>)</div>
-        <div class="btn-row">
-          <a class="btn outline" href="index.html">Home</a>
-          <button id="logoutBtn" class="btn">Logout</button>
-        </div>
-      </div>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-shield-alt"></i>
+                <span>TokenHaven</span>
+            </div>
+            <div class="nav-actions">
+                <a href="index.html" class="btn btn-outline">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <button id="logoutBtn" class="btn btn-outline">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+                <button id="themeToggle" class="btn btn-icon">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Profile Header -->
+        <section class="profile-header">
+            <div class="profile-container">
+                <div class="profile-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="profile-info">
+                    <h1 id="profileName">Loading...</h1>
+                    <p id="profileEmail">Loading...</p>
+                    <div class="profile-badges">
+                        <span class="badge badge-success">
+                            <i class="fas fa-check-circle"></i> Verified
+                        </span>
+                        <span class="badge badge-primary">
+                            <i class="fas fa-shield-alt"></i> Secure
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Dashboard -->
+        <section class="profile-dashboard">
+            <div class="dashboard-container">
+                <div class="dashboard-grid">
+                    <!-- Account Overview -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-user"></i> Account Overview</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="info-row">
+                                <span class="label">Username:</span>
+                                <span id="accountUsername" class="value">Loading...</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Email:</span>
+                                <span id="accountEmail" class="value">Loading...</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Account ID:</span>
+                                <span id="accountId" class="value">Loading...</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Status:</span>
+                                <span class="value">
+                                    <span class="badge badge-success">Active</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Status -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-shield-check"></i> Security Status</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="security-item">
+                                <i class="fas fa-lock text-success"></i>
+                                <div>
+                                    <strong>Password Protected</strong>
+                                    <p>Your account is secured with a strong password</p>
+                                </div>
+                            </div>
+                            <div class="security-item">
+                                <i class="fas fa-key text-success"></i>
+                                <div>
+                                    <strong>JWT Authentication</strong>
+                                    <p>Using secure token-based authentication</p>
+                                </div>
+                            </div>
+                            <div class="security-item">
+                                <i class="fas fa-database text-success"></i>
+                                <div>
+                                    <strong>Encrypted Storage</strong>
+                                    <p>Your data is encrypted and secure</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                        </div>
+                        <div class="card-content">
+                            <button id="testProtectedBtn" class="action-btn">
+                                <i class="fas fa-shield-alt"></i>
+                                <div>
+                                    <strong>Test Protected Route</strong>
+                                    <p>Verify your authentication</p>
+                                </div>
+                            </button>
+                            <button id="refreshProfileBtn" class="action-btn">
+                                <i class="fas fa-sync-alt"></i>
+                                <div>
+                                    <strong>Refresh Profile</strong>
+                                    <p>Update your profile information</p>
+                                </div>
+                            </button>
+                            <button class="action-btn" disabled>
+                                <i class="fas fa-cog"></i>
+                                <div>
+                                    <strong>Account Settings</strong>
+                                    <p>Coming soon</p>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Activity Log -->
+                    <div class="dashboard-card full-width">
+                        <div class="card-header">
+                            <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="activity-list">
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <i class="fas fa-sign-in-alt text-success"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <strong>Successful Login</strong>
+                                        <p>You logged in successfully</p>
+                                        <small id="loginTime">Just now</small>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <i class="fas fa-shield-alt text-primary"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <strong>Profile Accessed</strong>
+                                        <p>Your profile page was accessed</p>
+                                        <small>Just now</small>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <i class="fas fa-key text-info"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <strong>Token Generated</strong>
+                                        <p>New authentication token was created</p>
+                                        <small>A few moments ago</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Action Results -->
+        <section class="action-results">
+            <div class="results-container">
+                <div id="actionMessage" class="message"></div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>TokenHaven</span>
+                </div>
+                <p>&copy; 2024 TokenHaven. Your secure authentication partner.</p>
+            </div>
+        </footer>
     </div>
 
-    <div class="hero">
-      <img class="avatar" src="https://i.ibb.co/chzNR1LZ/Ayush-Pic.jpg" alt="Ayush" />
-      <h1 class="title">Hello, I'm Ayush Upadhyay!</h1>
-      <p class="subtitle">Data enthusiast · Python · SQL · Power BI</p>
-      <div class="btn-row" style="margin-top:10px;">
-        <a class="btn primary" href="https://www.linkedin.com/in/ayush-upadhyay-59b0901ab/" target="_blank" rel="noopener">LinkedIn</a>
-        <button class="btn" onclick="showMessage()">Say Hi</button>
-        <button id="themeBtn" class="btn">Toggle Theme</button>
-      </div>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Loading profile...</p>
     </div>
 
-    <div class="grid">
-      <div class="card">
-        <h2>Skills</h2>
-        <ul class="list">
-          <li>Python</li>
-          <li>SQL</li>
-          <li>Power BI</li>
-          <li>FastAPI</li>
-          <li>Data Viz</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h2>Projects</h2>
-        <ul class="list">
-          <li>OLA Project</li>
-          <li>SQL Project</li>
-          <li>Sales Dashboard</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h2>Contact</h2>
-        <div class="form">
-          <input type="text" id="username" placeholder="Your name" />
-          <input type="email" id="email" placeholder="Your email" />
-          <button class="btn primary" onclick="greetUser()">Send</button>
-          <p id="output" class="center" style="margin:0"></p>
-        </div>
-      </div>
-    </div>
-  </div>
+    <script>
+        // Profile-specific styles
+        const profileStyles = `
+            .profile-header {
+                background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+                color: white;
+                padding: 4rem 2rem;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
 
-  
-  <script>
-    // Auth/profile loader
-    (function(){
-      const TOKEN_KEY = 'tokenhaven_token';
-      const BASE_KEY = 'fastapi_base_url';
-      const base = localStorage.getItem(BASE_KEY) || 'http://127.0.0.1:8000';
-      const token = localStorage.getItem(TOKEN_KEY);
-      const bar = document.getElementById('profileBar');
-      const un = document.getElementById('pUsername');
-      const em = document.getElementById('pEmail');
-      const logoutBtn = document.getElementById('logoutBtn');
+            .profile-header::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.1);
+                backdrop-filter: blur(10px);
+            }
 
-      if(!token){
-        window.location.replace('index.html');
-        return;
-      }
+            .profile-container {
+                max-width: 800px;
+                margin: 0 auto;
+                position: relative;
+                z-index: 1;
+            }
 
-      logoutBtn.addEventListener('click', function(){
-        localStorage.removeItem(TOKEN_KEY);
-        window.location.replace('index.html');
-      });
+            .profile-avatar {
+                width: 8rem;
+                height: 8rem;
+                margin: 0 auto 2rem;
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 4rem;
+                backdrop-filter: blur(10px);
+                border: 3px solid rgba(255, 255, 255, 0.3);
+            }
 
-      fetch(base + '/user/me', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
-        }
-      }).then(async function(res){
-        var text = await res.text();
-        var data = null;
-        try{ data = JSON.parse(text); } catch(e) {}
-        if(res.ok && data){
-          un.textContent = data.username || 'user';
-          em.textContent = data.email || '';
-          bar.style.display = 'block';
-        } else {
-          alert((data && data.detail) || 'Session expired. Please log in again.');
-          localStorage.removeItem(TOKEN_KEY);
-          window.location.replace('index.html');
-        }
-      }).catch(function(){
-        alert('Could not load profile. Please try again later.');
-      });
-    })();
+            .profile-info h1 {
+                font-size: 2.5rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+            }
 
-    // Theme toggle using CSS variables
-    (function(){
-      var btn = document.getElementById('themeBtn');
-      if(btn){
-        btn.addEventListener('click', function(){
-          document.body.classList.toggle('dark');
+            .profile-info p {
+                font-size: 1.25rem;
+                opacity: 0.9;
+                margin-bottom: 1.5rem;
+            }
+
+            .profile-badges {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.5rem 1rem;
+                border-radius: var(--radius);
+                font-size: 0.875rem;
+                font-weight: 500;
+            }
+
+            .badge-success {
+                background: rgba(16, 185, 129, 0.2);
+                color: #10b981;
+                border: 1px solid rgba(16, 185, 129, 0.3);
+            }
+
+            .badge-primary {
+                background: rgba(99, 102, 241, 0.2);
+                color: #6366f1;
+                border: 1px solid rgba(99, 102, 241, 0.3);
+            }
+
+            .profile-dashboard {
+                padding: 4rem 2rem;
+                background: var(--bg-secondary);
+            }
+
+            .dashboard-container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .full-width {
+                grid-column: 1 / -1;
+            }
+
+            .info-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.75rem 0;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .info-row:last-child {
+                border-bottom: none;
+            }
+
+            .label {
+                font-weight: 500;
+                color: var(--text-secondary);
+            }
+
+            .value {
+                font-weight: 600;
+                color: var(--text-primary);
+            }
+
+            .security-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 1rem;
+                padding: 1rem 0;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .security-item:last-child {
+                border-bottom: none;
+            }
+
+            .security-item i {
+                font-size: 1.5rem;
+                margin-top: 0.25rem;
+            }
+
+            .text-success { color: var(--success); }
+            .text-primary { color: var(--primary); }
+            .text-info { color: var(--accent); }
+
+            .action-btn {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                width: 100%;
+                padding: 1rem;
+                background: var(--bg-primary);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                cursor: pointer;
+                transition: var(--transition);
+                text-align: left;
+            }
+
+            .action-btn:hover:not(:disabled) {
+                background: var(--bg-secondary);
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-md);
+            }
+
+            .action-btn:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+            .action-btn i {
+                font-size: 1.5rem;
+                color: var(--primary);
+            }
+
+            .activity-list {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .activity-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 1rem;
+                padding: 1rem;
+                background: var(--bg-primary);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+            }
+
+            .activity-icon {
+                width: 2.5rem;
+                height: 2.5rem;
+                border-radius: 50%;
+                background: var(--bg-secondary);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+
+            .activity-content strong {
+                display: block;
+                margin-bottom: 0.25rem;
+            }
+
+            .activity-content p {
+                color: var(--text-secondary);
+                margin-bottom: 0.5rem;
+            }
+
+            .activity-content small {
+                color: var(--text-secondary);
+                font-size: 0.75rem;
+            }
+
+            .action-results {
+                padding: 2rem;
+            }
+
+            .results-container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            @media (max-width: 768px) {
+                .profile-header {
+                    padding: 2rem 1rem;
+                }
+
+                .profile-info h1 {
+                    font-size: 2rem;
+                }
+
+                .profile-badges {
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .dashboard-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .info-row {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 0.5rem;
+                }
+            }
+        `;
+
+        // Inject profile styles
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = profileStyles;
+        document.head.appendChild(styleSheet);
+    </script>
+    <script src="main.js"></script>
+    <script>
+        // Profile-specific functionality
+        document.addEventListener('DOMContentLoaded', async () => {
+            const BASE_URL = 'http://127.0.0.1:8000';
+            
+            // Load profile data
+            async function loadProfile() {
+                try {
+                    LoadingManager.show();
+                    
+                    const token = localStorage.getItem('token');
+                    if (!token) {
+                        window.location.href = 'index.html';
+                        return;
+                    }
+                    
+                    const response = await fetch(`${BASE_URL}/user/me`, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const user = await response.json();
+                        updateProfileUI(user);
+                    } else {
+                        // Redirect to login if not authenticated
+                        window.location.href = 'index.html';
+                    }
+                } catch (error) {
+                    console.error('Failed to load profile:', error);
+                    window.location.href = 'index.html';
+                } finally {
+                    LoadingManager.hide();
+                }
+            }
+            
+            function updateProfileUI(user) {
+                // Update profile header
+                document.getElementById('profileName').textContent = user.username;
+                document.getElementById('profileEmail').textContent = user.email;
+                
+                // Update account overview
+                document.getElementById('accountUsername').textContent = user.username;
+                document.getElementById('accountEmail').textContent = user.email;
+                document.getElementById('accountId').textContent = `#${user.id}`;
+                
+                // Update login time
+                document.getElementById('loginTime').textContent = new Date().toLocaleString();
+            }
+            
+            // Test protected route
+            document.getElementById('testProtectedBtn').addEventListener('click', async () => {
+                try {
+                    const token = localStorage.getItem('token');
+                    const token = localStorage.getItem('token');
+                    const response = await fetch(`${BASE_URL}/protected`, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    
+                    const messageEl = document.getElementById('actionMessage');
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        NotificationManager.show(messageEl, data.message || 'Protected route accessed successfully!', 'success');
+                    } else {
+                        NotificationManager.show(messageEl, 'Failed to access protected route', 'error');
+                    }
+                } catch (error) {
+                    NotificationManager.show(document.getElementById('actionMessage'), 'Network error occurred', 'error');
+                }
+            });
+            
+            // Refresh profile
+            document.getElementById('refreshProfileBtn').addEventListener('click', async () => {
+                await loadProfile();
+                NotificationManager.show(document.getElementById('actionMessage'), 'Profile refreshed successfully!', 'success');
+            });
+            
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                localStorage.removeItem('token');
+                window.location.href = 'index.html';
+            });
+            
+            // Initialize theme
+            const themeManager = new ThemeManager();
+            document.getElementById('themeToggle').addEventListener('click', () => themeManager.toggle());
+            themeManager.updateThemeIcon();
+            
+            // Load profile on page load
+            await loadProfile();
         });
-      }
-    })();
-
-    function showMessage() {
-        alert("Thankyou for visiting my website!");
-    }
-
-    function greetUser() {
-        let name = document.getElementById("username").value;
-        let P_email = document.getElementById("email").value;
-        if (name === "") {
-            alert("Please enter your name!");
-        } 
-        else if (P_email === "") {
-            alert("Please enter your email!");
-        }
-        else {
-            document.getElementById("output").innerText = "Hi, " + name + "! Welcome to my page.\n" 
-        + "This is your Email: " + P_email;
-        }
-        
-    }
-    // Removed old inline toggleTheme() in favor of CSS class toggle above
-
-  </script>
-
-  <p>Visit my <a href="https://www.linkedin.com/in/ayush-upadhyay-59b0901ab/">LinkedIn</a></p>
-
-  <button>Hire Me!</button>
-
+    </script>
 </body>
 </html>

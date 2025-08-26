@@ -15,6 +15,11 @@ security = HTTPBearer()
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
 
+if not SECRET_KEY:
+    raise ValueError("SECRET_KEY environment variable is required")
+if not ALGORITHM:
+    raise ValueError("ALGORITHM environment variable is required")
+
 def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
     db: Session = Depends(get_db),

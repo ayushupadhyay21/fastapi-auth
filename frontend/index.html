@@ -1,64 +1,196 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>TokenHaven – Frontend</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TokenHaven - Secure Authentication</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
     <div class="container">
-      <h1>TokenHaven</h1>
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-shield-alt"></i>
+                <span>TokenHaven</span>
+            </div>
+            <div class="nav-actions">
+                <div id="loginStatus" class="status-badge">Not logged in</div>
+                <button id="logoutBtn" class="btn btn-outline" hidden>
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+                <button id="themeToggle" class="btn btn-icon">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
 
-      <div class="statusRow">
-        <div id="loginStatus">Not logged in.</div>
-        <button id="logoutBtn" class="secondary" hidden>Logout</button>
-      </div>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="gradient-text">Secure Authentication</span>
+                    <br>Made Simple
+                </h1>
+                <p class="hero-subtitle">
+                    Experience next-generation JWT authentication with TokenHaven. 
+                    Fast, secure, and beautifully designed.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <i class="fas fa-lock"></i>
+                        <span>256-bit Encryption</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-bolt"></i>
+                        <span>Lightning Fast</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-shield-check"></i>
+                        <span>Enterprise Grade</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      <section class="auth simple-grid">
-        <div class="card">
-          <h2>Create account</h2>
-          <form id="signupForm">
-            <label>Username <input name="username" autocomplete="username" required /></label>
-            <label>Email <input type="email" name="email" autocomplete="email" required /></label>
-            <label>Password <input type="password" name="password" autocomplete="new-password" required /></label>
-            <button type="submit">Sign up</button>
-          </form>
-          <p class="msg" id="signupMsg"></p>
-        </div>
+        <!-- Auth Forms -->
+        <section class="auth-section">
+            <div class="auth-container">
+                <!-- Login Form -->
+                <div class="auth-card" id="loginCard">
+                    <div class="card-header">
+                        <h2><i class="fas fa-sign-in-alt"></i> Welcome Back</h2>
+                        <p>Sign in to your account</p>
+                    </div>
+                    <form id="loginForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="loginUsername">
+                                <i class="fas fa-user"></i> Username
+                            </label>
+                            <input type="text" id="loginUsername" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">
+                                <i class="fas fa-lock"></i> Password
+                            </label>
+                            <input type="password" id="loginPassword" name="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        </button>
 
-        <div class="card">
-          <h2>Log in</h2>
-          <form id="loginForm">
-            <label>Username <input name="username" autocomplete="username" required /></label>
-            <label>Password <input type="password" name="password" autocomplete="current-password" required /></label>
-            <button type="submit">Log in</button>
-          </form>
-          <p class="msg" id="loginMsg"></p>
-        </div>
-      </section>
+                    </form>
+                    <div id="loginMsg" class="message"></div>
+                    <div class="card-footer">
+                        <p>Don't have an account? 
+                            <a href="#" id="showSignup" class="link">Create one</a>
+                        </p>
+                    </div>
+                </div>
 
-      <section class="actions simple-grid">
-        <div class="card">
-          <h2>Welcome message</h2>
-          <button id="btnProtected" disabled>Show message</button>
-          <p class="msg" id="protectedMsg"></p>
-        </div>
+                <!-- Signup Form -->
+                <div class="auth-card hidden" id="signupCard">
+                    <div class="card-header">
+                        <h2><i class="fas fa-user-plus"></i> Join TokenHaven</h2>
+                        <p>Create your secure account</p>
+                    </div>
+                    <form id="signupForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="signupUsername">
+                                <i class="fas fa-user"></i> Username
+                            </label>
+                            <input type="text" id="signupUsername" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail">
+                                <i class="fas fa-envelope"></i> Email
+                            </label>
+                            <input type="email" id="signupEmail" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">
+                                <i class="fas fa-lock"></i> Password
+                            </label>
+                            <input type="password" id="signupPassword" name="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <i class="fas fa-user-plus"></i> Create Account
+                        </button>
+                    </form>
+                    <div id="signupMsg" class="message"></div>
+                    <div class="card-footer">
+                        <p>Already have an account? 
+                            <a href="#" id="showLogin" class="link">Sign in</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <div class="card">
-          <h2>My profile</h2>
-          <button id="btnProfile" disabled>Show my profile</button>
-          <p class="msg" id="profileMsg"></p>
-        </div>
-      </section>
+        <!-- Dashboard Section -->
+        <section class="dashboard" id="dashboard" hidden>
+            <div class="dashboard-header">
+                <h2>Dashboard</h2>
+                <p>Welcome to your secure area</p>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Protected Route</h3>
+                    <p>Test your authentication with our protected endpoint</p>
+                    <button id="btnProtected" class="btn btn-secondary">
+                        <i class="fas fa-lock"></i> Access Protected
+                    </button>
+                    <div id="protectedMsg" class="message"></div>
+                </div>
 
-      <footer>
-        <small>Tip: After you log in, use the buttons above to view your welcome message and profile.</small>
-      </footer>
+                <div class="dashboard-card">
+                    <div class="card-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <h3>Your Profile</h3>
+                    <p>View and manage your account information</p>
+                    <button id="btnProfile" class="btn btn-secondary">
+                        <i class="fas fa-user"></i> View Profile
+                    </button>
+                    <div id="profileMsg" class="message"></div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Analytics</h3>
+                    <p>Monitor your account activity and security</p>
+                    <button class="btn btn-secondary" disabled>
+                        <i class="fas fa-chart-bar"></i> Coming Soon
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>TokenHaven</span>
+                </div>
+                <p>&copy; 2024 TokenHaven. Secure authentication made simple.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Processing...</p>
     </div>
 
     <script src="main.js"></script>
-  </body>
-  </html>
-
-
+</body>
+</html>

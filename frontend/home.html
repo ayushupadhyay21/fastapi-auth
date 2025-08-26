@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - TokenHaven</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-home"></i>
+                <span>TokenHaven</span>
+            </div>
+            <div class="nav-menu">
+                <a href="home.html" class="nav-link active">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="blog.html" class="nav-link">
+                    <i class="fas fa-blog"></i> Blog
+                </a>
+                <a href="PortfolioAyush.html" class="nav-link">
+                    <i class="fas fa-user"></i> Profile
+                </a>
+            </div>
+            <div class="nav-actions">
+                <div id="userWelcome" class="status-badge">Loading...</div>
+                <button id="logoutBtn" class="btn btn-outline">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+                <button id="themeToggle" class="btn btn-icon">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Dashboard Header -->
+        <section class="dashboard-header">
+            <div class="header-content">
+                <h1 id="welcomeTitle">Welcome back!</h1>
+                <p>Manage your blogs and profile from your dashboard</p>
+                <div class="quick-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-blog"></i>
+                        <span id="postCount">0</span>
+                        <small>Posts</small>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-eye"></i>
+                        <span>Active</span>
+                        <small>Status</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Dashboard -->
+        <section class="main-dashboard">
+            <div class="dashboard-container">
+                <!-- Action Cards -->
+                <div class="action-cards">
+                    <div class="action-card" id="newPostCard">
+                        <div class="card-icon primary">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <h3>Create Post</h3>
+                        <p>Write a new blog post</p>
+                    </div>
+                    <div class="action-card" onclick="window.location.href='blog.html'">
+                        <div class="card-icon secondary">
+                            <i class="fas fa-blog"></i>
+                        </div>
+                        <h3>All Blogs</h3>
+                        <p>View all blog posts</p>
+                    </div>
+                    <div class="action-card" onclick="window.location.href='PortfolioAyush.html'">
+                        <div class="card-icon accent">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Profile</h3>
+                        <p>Manage your profile</p>
+                    </div>
+                </div>
+
+                <!-- Recent Posts -->
+                <div class="recent-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-clock"></i> Your Recent Posts</h2>
+                        <a href="blog.html" class="view-all-link">View All <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div id="recentPostsContainer" class="posts-grid">
+                        <!-- Recent posts will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Create Post Modal -->
+        <div id="createPostModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><i class="fas fa-edit"></i> Create New Post</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <form id="createPostForm">
+                    <div class="form-group">
+                        <label for="postTitle">Title</label>
+                        <input type="text" id="postTitle" name="title" required maxlength="200">
+                    </div>
+                    <div class="form-group">
+                        <label for="postContent">Content</label>
+                        <textarea id="postContent" name="content" rows="8" required></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Publish
+                        </button>
+                        <button type="button" class="btn btn-secondary modal-cancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>TokenHaven</span>
+                </div>
+                <p>&copy; 2024 TokenHaven. Your secure platform.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        class HomeManager {
+            constructor() {
+                this.BASE_URL = 'http://127.0.0.1:8000';
+                this.user = null;
+                this.init();
+            }
+
+            async init() {
+                this.checkAuth();
+                await this.loadUser();
+                this.setupEventListeners();
+                await this.loadRecentPosts();
+            }
+
+            checkAuth() {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    window.location.href = 'index.html';
+                    return false;
+                }
+                return true;
+            }
+
+            async loadUser() {
+                try {
+                    const token = localStorage.getItem('token');
+                    const response = await fetch(`${this.BASE_URL}/user/me`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    if (response.ok) {
+                        this.user = await response.json();
+                        document.getElementById('userWelcome').textContent = `${this.user.username}`;
+                        document.getElementById('welcomeTitle').textContent = `Welcome back, ${this.user.username}!`;
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                } catch (error) {
+                    window.location.href = 'index.html';
+                }
+            }
+
+            setupEventListeners() {
+                // Theme toggle
+                const themeManager = new ThemeManager();
+                document.getElementById('themeToggle').addEventListener('click', () => themeManager.toggle());
+                themeManager.updateThemeIcon();
+
+                // Navigation
+                document.getElementById('newPostCard').addEventListener('click', () => this.showCreateModal());
+
+                // Modal controls
+                document.getElementById('createPostForm').addEventListener('submit', (e) => this.createPost(e));
+                document.querySelectorAll('.modal-close, .modal-cancel').forEach(btn => {
+                    btn.addEventListener('click', () => this.hideModal());
+                });
+
+                // Logout
+                document.getElementById('logoutBtn').addEventListener('click', () => {
+                    localStorage.removeItem('token');
+                    window.location.href = 'index.html';
+                });
+            }
+
+            showCreateModal() {
+                document.getElementById('createPostModal').classList.remove('hidden');
+            }
+
+            hideModal() {
+                document.getElementById('createPostModal').classList.add('hidden');
+                document.getElementById('createPostForm').reset();
+            }
+
+            async createPost(e) {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const data = {
+                    title: formData.get('title'),
+                    content: formData.get('content')
+                };
+
+                try {
+                    LoadingManager.show();
+                    const token = localStorage.getItem('token');
+                    const response = await fetch(`${this.BASE_URL}/blogs/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    if (response.ok) {
+                        this.hideModal();
+                        await this.loadRecentPosts();
+                    } else {
+                        alert('Failed to create post');
+                    }
+                } catch (error) {
+                    alert('Error creating post');
+                } finally {
+                    LoadingManager.hide();
+                }
+            }
+
+            async loadRecentPosts() {
+                try {
+                    const token = localStorage.getItem('token');
+                    const response = await fetch(`${this.BASE_URL}/blogs/my`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    if (response.ok) {
+                        const posts = await response.json();
+                        this.renderRecentPosts(posts.slice(0, 3));
+                    }
+                } catch (error) {
+                    console.error('Error loading posts:', error);
+                }
+            }
+
+            renderRecentPosts(posts) {
+                const container = document.getElementById('recentPostsContainer');
+                document.getElementById('postCount').textContent = posts.length;
+                
+                if (posts.length === 0) {
+                    container.innerHTML = '<div class="empty-state"><i class="fas fa-blog"></i><p>No posts yet. Create your first post!</p></div>';
+                    return;
+                }
+
+                container.innerHTML = posts.map(post => `
+                    <div class="post-card">
+                        <h4>${post.title}</h4>
+                        <p>${post.content.substring(0, 120)}${post.content.length > 120 ? '...' : ''}</p>
+                        <div class="post-meta">
+                            <small><i class="fas fa-calendar"></i> ${new Date(post.created_at).toLocaleDateString()}</small>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Initialize home manager
+        document.addEventListener('DOMContentLoaded', () => {
+            new HomeManager();
+            
+            // Prevent back navigation
+            history.pushState(null, null, location.href);
+            window.onpopstate = function () {
+                history.go(1);
+            };
+        });
+    </script>
+
+    <style>
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quick-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--radius);
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-item i {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item span {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .main-dashboard {
+            padding: 3rem 2rem;
+            background: var(--bg-secondary);
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            padding: 0.5rem 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .action-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .action-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .action-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-icon {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .card-icon.primary { background: var(--primary); }
+        .card-icon.secondary { background: var(--secondary); }
+        .card-icon.accent { background: var(--accent); }
+
+        .recent-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .view-all-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .post-card {
+            padding: 1.5rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .post-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .post-card h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .post-card p {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .post-meta {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .quick-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .action-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</body>
+</html>

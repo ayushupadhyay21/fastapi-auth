@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TokenHaven - Secure Authentication Platform</title>
+    <link rel="stylesheet" href="frontend/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="landing-container">
+        <!-- Hero Section -->
+        <section class="landing-hero">
+            <div class="hero-content">
+                <div class="brand-logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <h1>TokenHaven</h1>
+                </div>
+                <h2 class="hero-title">Secure Authentication Made Simple</h2>
+                <p class="hero-description">
+                    Experience next-generation JWT authentication with modern blogging capabilities. 
+                    Fast, secure, and beautifully designed.
+                </p>
+                <div class="hero-actions">
+                    <a href="frontend/" class="btn btn-primary btn-large">
+                        <i class="fas fa-sign-in-alt"></i> Get Started
+                    </a>
+                    <a href="docs" class="btn btn-outline btn-large">
+                        <i class="fas fa-book"></i> API Docs
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="feature-cards">
+                    <div class="feature-card">
+                        <i class="fas fa-lock"></i>
+                        <span>Secure</span>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-bolt"></i>
+                        <span>Fast</span>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-blog"></i>
+                        <span>Blog</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features">
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fas fa-shield-check"></i>
+                    <h3>JWT Authentication</h3>
+                    <p>Secure token-based authentication with industry standards</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-blog"></i>
+                    <h3>Modern Blogging</h3>
+                    <p>Create and share your thoughts with a beautiful interface</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-user-circle"></i>
+                    <h3>Profile Management</h3>
+                    <p>Manage your account and view your activity</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="landing-footer">
+            <p>&copy; 2024 TokenHaven. Built with FastAPI & Modern Web Technologies.</p>
+        </footer>
+    </div>
+
+    <style>
+        .landing-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .landing-hero {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .brand-logo i {
+            font-size: 3rem;
+            color: #ffd700;
+        }
+
+        .brand-logo h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: #ffd700;
+            color: #333;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #ffed4e;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .feature-cards {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #ffd700;
+        }
+
+        .features {
+            background: rgba(0,0,0,0.1);
+            padding: 4rem 2rem;
+        }
+
+        .features-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .feature i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .feature h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .landing-footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0,0,0,0.2);
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .brand-logo {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .brand-logo h1 {
+                font-size: 2rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .feature-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</body>
+</html>

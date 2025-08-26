@@ -9,6 +9,8 @@ load_dotenv()
 
 # Read the database URL
 DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL environment variable is required")
 
 # Create engine
 engine = create_engine(DATABASE_URL)
